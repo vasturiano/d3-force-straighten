@@ -1,0 +1,60 @@
+{
+  "name": "d3-force-straighten",
+  "version": "0.0.1",
+  "description": "A force that straightens linked arms of nodes using linear regression for the d3-force simulation engine.",
+  "keywords": [
+    "d3",
+    "d3-module",
+    "d3-force",
+    "straighten",
+    "straight-arms",
+    "straight-links",
+    "linear-regression",
+    "physics",
+    "layout",
+    "graph",
+    "force",
+    "simulation"
+  ],
+  "homepage": "https://github.com/vasturiano/d3-force-straighten",
+  "license": "MIT",
+  "author": {
+    "name": "Vasco Asturiano",
+    "url": "https://github.com/vasturiano"
+  },
+  "type": "module",
+  "jsdelivr": "dist/d3-force-straighten.min.js",
+  "unpkg": "dist/d3-force-straighten.min.js",
+  "main": "dist/d3-force-straighten.mjs",
+  "module": "dist/d3-force-straighten.mjs",
+  "exports": {
+    "umd": "./dist/d3-force-straighten.min.js",
+    "default": "./dist/d3-force-straighten.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vasturiano/d3-force-straighten.git"
+  },
+  "scripts": {
+    "build": "rimraf dist && rollup -c",
+    "dev": "rollup -w -c",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.41.1"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}
