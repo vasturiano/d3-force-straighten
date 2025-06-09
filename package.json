@@ -1,6 +1,6 @@
 {
   "name": "d3-force-straighten",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A force that straightens linked arms of nodes using linear regression for the d3-force simulation engine.",
   "keywords": [
     "d3",
