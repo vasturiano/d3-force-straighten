@@ -1,6 +1,6 @@
 {
   "name": "d3-force-straighten",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A D3 force plugin that straightens chains of connected nodes into rigid lines.",
   "keywords": [
     "d3",
