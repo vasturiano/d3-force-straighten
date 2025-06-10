@@ -1,0 +1,85 @@
+<head>
+  <style> body { margin: 0 } </style>
+
+<!--  <script src="../dist/d3-force-straighten.js"></script>-->
+<!--  <script>forceStraighten = d3.forceStraighten</script>-->
+</head>
+
+<body>
+  <div id="graph"></div>
+  <script type="module">
+    import forceStraighten from 'https://esm.sh/d3-force-straighten';
+    import ForceGraph from 'https://esm.sh/force-graph';
+
+    const gData = genGraph();
+
+    new ForceGraph()
+      (document.getElementById('graph'))
+      .graphData(gData)
+      .d3Force('straighten', forceStraighten(gData.links)
+        .id(node => node.id)
+        .strength(0.5)
+      );
+
+    //
+
+    function genGraph({
+      numLines = 5,
+      stationsPerLine = 7,
+      intersectionChance = 0.15
+    } = {}) {
+      const links = [];
+      const stationMap = new Map(); // id -> { id, x, y }
+      const lines = [];
+      let stationIdCounter = 0;
+
+      function createStation(x, y) {
+        const id = `S${stationIdCounter++}`;
+        const station = { id, x: parseFloat(x.toFixed(2)), y: parseFloat(y.toFixed(2)) };
+        stationMap.set(id, station);
+        return station;
+      }
+
+      for (let lineIndex = 0; lineIndex < numLines; lineIndex++) {
+        const lineName = `Line-${lineIndex + 1}`;
+        const line = [];
+        let prevId = null;
+
+        // Random walk setup
+        let x = Math.random() * 100;
+        let y = Math.random() * 100;
+        const dx = (Math.random() - 0.5) * 2;
+        const dy = (Math.random() - 0.5) * 2;
+
+        for (let i = 0; i < stationsPerLine; i++) {
+          // With some chance, pick a shared node from an earlier line
+          let station;
+          if (Math.random() < intersectionChance && lines.length > 1) {
+            const otherLine = lines[Math.floor(Math.random() * lines.length)];
+            const sharedNodeId = otherLine[Math.floor(Math.random() * otherLine.length)];
+            station = stationMap.get(sharedNodeId);
+          }
+
+          if (!station) {
+            x += dx + (Math.random() - 0.5);
+            y += dy + (Math.random() - 0.5);
+            station = createStation(x, y);
+          }
+
+          const currentId = station.id;
+          line.push(currentId);
+
+          if (prevId) {
+            links.push({ source: prevId, target: currentId, line: lineName });
+          }
+          prevId = currentId;
+        }
+
+        lines.push(line);
+      }
+
+      const nodes = Array.from(stationMap.values());
+      return { nodes, links };
+    }
+  </script>
+</body>
